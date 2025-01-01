@@ -37,3 +37,16 @@ kubernetes   ClusterIP      10.0.0.1       <none>         443/TCP        106m
 ```
 Then we can verify by access external IP 20.28.47.135:
 ![image](https://github.com/user-attachments/assets/d1f507a7-c2fd-435b-afd0-9b21581f8015)
+
+5. Install ingress-nginx controller
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
+```
+- Then check ingress-nginx controller installed: `kubectl get svc -n ingress-nginx`. The result will looks like:
+```
+NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.0.170.192   20.28.40.188   80:31685/TCP,443:32703/TCP   75m
+ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>         443/TCP                      75m
+```
+- Then create subdomain for IP `20.28.40.188`. You can access Azure portal, search for Public IP, select public IP `20.28.40.188`, find out `Configuration` section, input subdomain todo.australiacentral.cloudapp.azure.com. This step we can re-use subdomain created by azure. But you can create your own subdomain by creating A record in your DNS site management.
+
