@@ -5,17 +5,17 @@ This is reference from https://viblo.asia/p/bao-mat-nginx-ingress-voi-cert-manag
 ```
 az login
 ```
-2. Login to k8s cluster
+**2. Login to k8s cluster**
 ```
 az aks get-credentials --resource-group <your-resource-group> --name <your-k8s-cluster>
 ```
 
-3. Create secret (for environment of docker to deploy in k8s)
+**3. Create secret (for environment of docker to deploy in k8s)**
 ```
 kubectl apply -f ./secret.yml
 ```
 
-4. Deploy apps:
+**4. Deploy apps:**
 ```
 kubectl apply -f ./deployment.yml 
 ```
@@ -38,7 +38,7 @@ kubernetes   ClusterIP      10.0.0.1       <none>         443/TCP        106m
 Then we can verify by access external IP 20.28.47.135:
 ![image](https://github.com/user-attachments/assets/d1f507a7-c2fd-435b-afd0-9b21581f8015)
 
-5. Install ingress-nginx controller
+**5. Install ingress-nginx controller**
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
 ```
@@ -51,13 +51,13 @@ ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>       
 - Then create subdomain for IP `20.28.40.188`. You can access Azure portal, search for Public IP, select public IP `20.28.40.188`, find out `Configuration` section, input subdomain todo.australiacentral.cloudapp.azure.com. This step we can re-use subdomain created by azure. But you can create your own subdomain by creating A record in your DNS site management.
 ![image](https://github.com/user-attachments/assets/4fc4f7bf-bb43-4725-a0c0-df67a5126c35)
 
-6. Update ingress.yml by replace `<your-domain>` with `todo.australiacentral.cloudapp.azure.com`, save it
-7. Apply ingress.yml:
+**6. Update ingress.yml by replace `<your-domain>` with `todo.australiacentral.cloudapp.azure.com`, save it**
+**7. Apply ingress.yml:**
 ```
 kubectl apply -f ./ingress.yml
 ```
 
-8. You need to install cert-manager (https://cert-manager.io/) that is a plugin of k8s to issue cert and auto re-new it every 3 months. It uses letsencrypt:
+**8. You need to install cert-manager (https://cert-manager.io/) that is a plugin of k8s to issue cert and auto re-new it every 3 months. It uses letsencrypt:**
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
 ```
@@ -69,7 +69,7 @@ cert-manager-cainjector-5c7f79b84b-dsrbs   1/1     Running   0          74m
 cert-manager-webhook-657b9f664c-qwzmd      1/1     Running   0          74m
 ```
 
-9. Open issuer.yml, at `email` section, update `<your-email>` by your real email. Then apply it:
+**9. Open issuer.yml, at `email` section, update `<your-email>` by your real email. Then apply it:**
 ```
 kubectl apply -f ./issuer.yml
 ```
@@ -79,7 +79,7 @@ NAME               READY   AGE
 letsencrypt-prod   True    58s
 ```
 
-10. Update ingress.yml again, add/modify as below section:
+**10. Update ingress.yml again, add/modify as below section:**
 
 ![image](https://github.com/user-attachments/assets/a30e8637-189d-4146-af4e-37a86912ea1e)
 - Then apply it:
@@ -93,7 +93,7 @@ todo   nginx   todo.australiacentral.cloudapp.azure.com   20.28.40.188   80, 443
 ```
 - Then you will see now ingress can be accessible via port 443 it means SSL
 
-11. Run migration of backend. That is because of we're using existing backend image. For your own backend, you can handle it by bootstrap application itself, so you might don't need to run this step if your backend already cover it during bootstraping application:
+**11. Run migration of backend. That is because of we're using existing backend image. For your own backend, you can handle it by bootstrap application itself, so you might don't need to run this step if your backend already cover it during bootstraping application:**
 ```
 kubectl exec -it <pod-backend-name> -- sh
 yarn prisma migrate deploy
