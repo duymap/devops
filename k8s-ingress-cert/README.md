@@ -54,7 +54,7 @@ ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>       
 6. Update ingress.yml by replace `<your-domain>` with `todo.australiacentral.cloudapp.azure.com`, save it
 7. Apply ingress.yml:
 ```
-kubectl apply -f ingress.yml
+kubectl apply -f ./ingress.yml
 ```
 
 8. You need to install cert-manager (https://cert-manager.io/) that is a plugin of k8s to issue cert and auto re-new it every 3 months. It uses letsencrypt:
@@ -67,4 +67,9 @@ NAME                                       READY   STATUS    RESTARTS   AGE
 cert-manager-57d855897b-gcdpb              1/1     Running   0          74m
 cert-manager-cainjector-5c7f79b84b-dsrbs   1/1     Running   0          74m
 cert-manager-webhook-657b9f664c-qwzmd      1/1     Running   0          74m
+```
+
+9. Open issuer.yml, at `email` section, update `<your-email>` by your real email. Then apply it:
+```
+kubectl apply -f ./issuer.yml
 ```
