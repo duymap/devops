@@ -1,0 +1,144 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app.kubernetes.io/name: k8s-ingress-demo-backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: maitrungduc1410/k8s-ingress-demo-backend:latest
+        ports:
+        - containerPort: 3000
+          name: pod-http
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+        envFrom:
+        - secretRef:
+            name: todo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP
+  ports:
+    - name: svc-http
+      protocol: TCP
+      port: 80
+      targetPort: pod-http
+  selector:
+    app: backend
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app.kubernetes.io/name: k8s-ingress-demo-frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: maitrungduc1410/k8s-ingress-demo-frontend:latest
+        ports:
+        - containerPort: 80
+          name: pod-http
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - name: svc-http
+      protocol: TCP
+      port: 80
+      targetPort: pod-http
+  selector:
+    app: frontend
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app.kubernetes.io/name: k8s-ingress-demo-db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: mysql:8
+        ports:
+        - containerPort: 3306
+          name: pod-http
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "64m"
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+        envFrom:
+        - secretRef:
+            name: todo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  type: ClusterIP
+  ports:
+    - name: svc-http
+      protocol: TCP
+      port: 80
+      targetPort: pod-http
+  selector:
+    app: db
