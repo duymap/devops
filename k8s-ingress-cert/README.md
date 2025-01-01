@@ -100,3 +100,5 @@ yarn prisma migrate deploy
 ```
 
 Whew, now you finally get application running and access via https:
+![image](https://github.com/user-attachments/assets/df597fb8-30fd-4fec-b281-3aabebd7e516)
+
