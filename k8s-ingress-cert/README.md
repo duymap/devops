@@ -52,6 +52,7 @@ ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>       
 ![image](https://github.com/user-attachments/assets/85838a08-99dc-44aa-8fab-1e0610ceae8a)
 
 **6. Update ingress.yml by replace `<your-domain>` with `todo.australiacentral.cloudapp.azure.com`, save it**
+
 **7. Apply ingress.yml:**
 ```
 kubectl apply -f ./ingress.yml
