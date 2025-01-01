@@ -5,4 +5,7 @@ This is reference from https://viblo.asia/p/bao-mat-nginx-ingress-voi-cert-manag
 ```
 az login
 ```
-2. 
+2. Login to k8s cluster
+```
+az aks get-credentials --resource-group <your-resource-group> --name <your-k8s-cluster>
+```
