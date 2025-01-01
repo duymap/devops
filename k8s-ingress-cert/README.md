@@ -73,3 +73,10 @@ cert-manager-webhook-657b9f664c-qwzmd      1/1     Running   0          74m
 ```
 kubectl apply -f ./issuer.yml
 ```
+- Then verify if issuer is ready: `kubectl get issuer`. The result will be looks like:
+```
+NAME               READY   AGE
+letsencrypt-prod   True    58s
+```
+
+10. Update ingress.yml again, add/modify as below section:
