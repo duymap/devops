@@ -19,3 +19,10 @@ kubectl apply -f ./secret.yml
 ```
 kubectl apply -f ./deployment.yml 
 ```
+Then verify pods: ` kubectl get pods`
+```
+NAME                       READY   STATUS    RESTARTS      AGE
+backend-6997b6d44-lbqmn    1/1     Running   1 (76m ago)   77m
+db-6d99dfccdc-rzgsv        1/1     Running   0             77m
+frontend-68f56f8cf-ggwcn   1/1     Running   0             77m
+```
