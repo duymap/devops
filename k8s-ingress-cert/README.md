@@ -50,3 +50,21 @@ ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>       
 ```
 - Then create subdomain for IP `20.28.40.188`. You can access Azure portal, search for Public IP, select public IP `20.28.40.188`, find out `Configuration` section, input subdomain todo.australiacentral.cloudapp.azure.com. This step we can re-use subdomain created by azure. But you can create your own subdomain by creating A record in your DNS site management.
 ![image](https://github.com/user-attachments/assets/4fc4f7bf-bb43-4725-a0c0-df67a5126c35)
+
+6. Update ingress.yml by replace `<your-domain>` with `todo.australiacentral.cloudapp.azure.com`, save it
+7. Apply ingress.yml:
+```
+kubectl apply -f ingress.yml
+```
+
+8. You need to install cert-manager (https://cert-manager.io/) that is a plugin of k8s to issue cert and auto re-new it every 3 months. It uses letsencrypt:
+```
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
+```
+- Then confirm if cert-manager installed successfully by: `kubectl get pods -n cert-manager`. The result will be looks like:
+```
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-57d855897b-gcdpb              1/1     Running   0          74m
+cert-manager-cainjector-5c7f79b84b-dsrbs   1/1     Running   0          74m
+cert-manager-webhook-657b9f664c-qwzmd      1/1     Running   0          74m
+```
