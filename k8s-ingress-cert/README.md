@@ -11,4 +11,11 @@ az aks get-credentials --resource-group <your-resource-group> --name <your-k8s-c
 ```
 
 3. Create secret (for environment of docker to deploy in k8s)
-`kubectl apply -f ./secret.yml`
+```
+kubectl apply -f ./secret.yml
+```
+
+4. Deploy apps:
+```
+kubectl apply -f ./deployment.yml 
+```
