@@ -49,4 +49,4 @@ ingress-nginx-controller             LoadBalancer   10.0.170.192   20.28.40.188 
 ingress-nginx-controller-admission   ClusterIP      10.0.127.65    <none>         443/TCP                      75m
 ```
 - Then create subdomain for IP `20.28.40.188`. You can access Azure portal, search for Public IP, select public IP `20.28.40.188`, find out `Configuration` section, input subdomain todo.australiacentral.cloudapp.azure.com. This step we can re-use subdomain created by azure. But you can create your own subdomain by creating A record in your DNS site management.
-
+![image](https://github.com/user-attachments/assets/4fc4f7bf-bb43-4725-a0c0-df67a5126c35)
