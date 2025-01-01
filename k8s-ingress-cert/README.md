@@ -82,4 +82,21 @@ letsencrypt-prod   True    58s
 10. Update ingress.yml again, add/modify as below section:
 
 ![image](https://github.com/user-attachments/assets/a30e8637-189d-4146-af4e-37a86912ea1e)
+- Then apply it:
+```
+kubectl apply -f ./ingress.yml
+```
+- Then wait a bit and verify ingress by `kubectl get ing`, the result will looks like:
+```
+NAME   CLASS   HOSTS                                      ADDRESS        PORTS     AGE
+todo   nginx   todo.australiacentral.cloudapp.azure.com   20.28.40.188   80, 443   81m
+```
+- Then you will see now ingress can be accessible via port 443 it means SSL
 
+11. Run migration of backend. That is because of we're using existing backend image. For your own backend, you can handle it by bootstrap application itself, so you might don't need to run this step if your backend already cover it during bootstraping application:
+```
+kubectl exec -it <pod-backend-name> -- sh
+yarn prisma migrate deploy
+```
+
+Whew, now you finally get application running and access via https:
