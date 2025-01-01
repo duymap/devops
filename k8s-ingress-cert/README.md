@@ -28,8 +28,11 @@ frontend-68f56f8cf-ggwcn   1/1     Running   0             77m
 ```
 
 - Then veriry service: `kubectl get svc`. The result will looks like:
+```
 NAME         TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)        AGE
 backend      ClusterIP      10.0.96.33     <none>         80/TCP         79m
 db           ClusterIP      10.0.15.148    <none>         80/TCP         79m
 frontend     LoadBalancer   10.0.211.214   20.28.47.135   80:30398/TCP   79m
 kubernetes   ClusterIP      10.0.0.1       <none>         443/TCP        106m
+```
+Then we can verify by access external IP 20.28.47.135:
