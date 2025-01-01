@@ -36,3 +36,4 @@ frontend     LoadBalancer   10.0.211.214   20.28.47.135   80:30398/TCP   79m
 kubernetes   ClusterIP      10.0.0.1       <none>         443/TCP        106m
 ```
 Then we can verify by access external IP 20.28.47.135:
+![image](https://github.com/user-attachments/assets/d1f507a7-c2fd-435b-afd0-9b21581f8015)
