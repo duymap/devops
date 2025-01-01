@@ -80,3 +80,5 @@ letsencrypt-prod   True    58s
 ```
 
 10. Update ingress.yml again, add/modify as below section:
+![image](https://github.com/user-attachments/assets/a30e8637-189d-4146-af4e-37a86912ea1e)
+
